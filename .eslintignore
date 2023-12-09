@@ -1,1 +1,4 @@
-main.js
+/dist
+/node_modules
+/webpack.config.js
+/babel.config.js

@@ -2,13 +2,23 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ["eslint-config-airbnb-base", "prettier"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  rules: {},
+  plugins: ["jest"],
+  rules: {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+      },
+    ],
+  },
   overrides: [
     {
       files: ["webpack.config.js"],
