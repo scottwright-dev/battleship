@@ -8,7 +8,7 @@
     "dev": "webpack serve",
     "prettier": "prettier . --write",
     "lint": "eslint . --fix --max-warnings=0",
-    "test": "jest"
+    "test": "jest --watchAll --verbose"
   },
   "repository": {
     "type": "git",
