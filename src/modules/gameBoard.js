@@ -24,19 +24,19 @@ export default class GameBoard {
     }
 
     if (ship.shipLength === 1) {
-      this.board[rowIndex][columnIndex] = ship.shipType;
+      this.board[rowIndex][columnIndex] = ship;
     } else if (ship.shipLength > 1) {
       if (
         this.isValidPlacement(ship, rowIndex, columnIndex + ship.shipLength - 1)
       ) {
         for (let i = 0; i < ship.shipLength; i++) {
-          this.board[rowIndex][columnIndex + i] = ship.shipType;
+          this.board[rowIndex][columnIndex + i] = ship;
         }
       } else if (
         this.isValidPlacement(ship, rowIndex + ship.shipLength - 1, columnIndex)
       ) {
         for (let i = 0; i < ship.shipLength; i++) {
-          this.board[rowIndex + i][columnIndex] = ship.shipType;
+          this.board[rowIndex + i][columnIndex] = ship;
         }
       } else {
         return false;
