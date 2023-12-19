@@ -18,35 +18,52 @@ export default class GameBoard {
     return boardArray;
   }
 
-  placeShip(ship, rowIndex, columnIndex) {
-    if (!this.isValidPlacement(ship, rowIndex, columnIndex)) {
-      return false;
-    }
+  placeShip(ship, rowIndex, columnIndex, isHorizontal = true) {
+    if (isHorizontal) {
+      let canPlaceHorizontally = true;
+      for (let i = 0; i < ship.shipLength; i++) {
+        if (
+          columnIndex + i >= this.columns ||
+          this.board[rowIndex][columnIndex + i] !== null
+        ) {
+          canPlaceHorizontally = false;
+          break;
+        }
+      }
 
-    if (ship.shipLength === 1) {
-      this.board[rowIndex][columnIndex] = ship;
-    } else if (ship.shipLength > 1) {
-      if (
-        this.isValidPlacement(ship, rowIndex, columnIndex + ship.shipLength - 1)
-      ) {
+      if (canPlaceHorizontally) {
         for (let i = 0; i < ship.shipLength; i++) {
           this.board[rowIndex][columnIndex + i] = ship;
         }
-      } else if (
-        this.isValidPlacement(ship, rowIndex + ship.shipLength - 1, columnIndex)
-      ) {
-        for (let i = 0; i < ship.shipLength; i++) {
-          this.board[rowIndex + i][columnIndex] = ship;
-        }
-      } else {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    if (!isHorizontal) {
+      let canPlaceVertically = true;
+      for (let i = 0; i < ship.shipLength; i++) {
+        if (
+          rowIndex + i >= this.rows ||
+          this.board[rowIndex + i][columnIndex] !== null
+        ) {
+          canPlaceVertically = false;
+          break;
+        }
+      }
+
+      if (canPlaceVertically) {
+        for (let i = 0; i < ship.shipLength; i++) {
+          this.board[rowIndex + i][columnIndex] = ship;
+        }
+        return true;
+      }
+    }
+
+    return false;
   }
 
-  isValidPlacement(ship, rowIndex, columnIndex) {
+  // helper method for placeShip & receiveAttack to check out of bounds
+  isValidPlacement(rowIndex, columnIndex) {
     if (
       rowIndex >= 0 &&
       rowIndex < this.rows &&
