@@ -25,15 +25,17 @@ test("Ships can be placed at specific coordinates by calling Ship class", () => 
   expect(gameBoard.board[0][1]).toBe(battleship);
 });
 
-test("Placed ships do not overlap on board", () => {
+test("Ships do not overlap other ships", () => {
   const gameBoard = new GameBoard();
   const battleship = new Ship("battleship", 3);
   const carrier = new Ship("carrier", 5);
 
-  gameBoard.placeShip(battleship, 0, 1);
-  gameBoard.placeShip(carrier, 0, 1);
+  gameBoard.placeShip(battleship, 0, 0, true);
+  const overlap1 = gameBoard.placeShip(carrier, 0, 1, true);
+  const overlap2 = gameBoard.placeShip(carrier, 0, 0, false);
 
-  expect(gameBoard.placeShip(carrier, 0, 1)).toBe(false);
+  expect(overlap1).toBe(false);
+  expect(overlap2).toBe(false);
 });
 
 test("Ships cannot be placed out of board boundary", () => {
@@ -44,9 +46,3 @@ test("Ships cannot be placed out of board boundary", () => {
 
   expect(result).toBe(false);
 });
-
-/*
-Gameboard should have a receiveAttack function that takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
-Gameboard should keep track of missed attacks so they can display them properly.
-Gameboard should be able to report whether or not all of their ships have been sunk.
-*/
