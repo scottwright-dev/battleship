@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+import Ship from "./ship";
 
 export default class GameBoard {
   constructor() {
@@ -62,18 +63,48 @@ export default class GameBoard {
     return false;
   }
 
-  // helper method for placeShip & receiveAttack to check out of bounds
-  isValidPlacement(rowIndex, columnIndex) {
-    if (
+  isAttackValid(rowIndex, columnIndex) {
+    return (
       rowIndex >= 0 &&
       rowIndex < this.rows &&
       columnIndex >= 0 &&
       columnIndex < this.columns
-    ) {
-      if (this.board[rowIndex][columnIndex] === null) {
-        return true;
+    );
+  }
+
+  markCellAsAttacked(rowIndex, columnIndex, result) {
+    this.board[rowIndex][columnIndex] = result;
+  }
+
+  receiveAttack(rowIndex, columnIndex) {
+    if (!this.isAttackValid(rowIndex, columnIndex)) {
+      return true;
+    }
+
+    const target = this.board[rowIndex][columnIndex];
+
+    if (target === "hit" || target === "miss") {
+      return false;
+    }
+
+    if (target instanceof Ship) {
+      target.hit();
+      this.markCellAsAttacked(rowIndex, columnIndex, "hit");
+      return true;
+    }
+    this.markCellAsAttacked(rowIndex, columnIndex, "miss");
+    return false;
+  }
+
+  areAllShipsSunk() {
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.columns; j++) {
+        const cell = this.board[i][j];
+        if (cell instanceof Ship && !cell.isSunk) {
+          return false;
+        }
       }
     }
-    return false;
+    return true;
   }
 }
