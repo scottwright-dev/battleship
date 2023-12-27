@@ -16,4 +16,14 @@ export default class GameController {
     this.currentPlayer =
       this.currentPlayer === this.player1 ? this.player2 : this.player1;
   }
+
+  checkWin() {
+    if (this.player1.gameBoard.areAllShipsSunk()) {
+      return this.player1;
+    }
+    if (this.player2.gameBoard.areAllShipsSunk()) {
+      return this.player1;
+    }
+    return null;
+  }
 }
