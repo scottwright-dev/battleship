@@ -7,6 +7,35 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <h1>Battleships Game</h1>
+    <main class="container">
+      <header class="header">
+        <h1>Battleships</h1>
+      </header>
+
+      <div class="player-container p1-container">
+        <h2 class="player-title">Your Fleet</h2>
+        <div id="p1-gameboard" class="gameboard"></div>
+        <h3 class="ship-counter p1-ship-counter"></h3>
+      </div>
+      <div class="player-container p2-container">
+        <h2 class="player-title">Enemy Fleet</h2>
+        <div id="p2-gameboard" class="gameboard"></div>
+        <h3 class="ship-counter p2-ship-counter"></h3>
+      </div>
+
+      <div class="btn-container">
+        <button class="restart-btn">Restart Game</button>
+      </div>
+    </main>
+
+    <footer>
+      <a
+        href="https://github.com/scottwright-dev/battleship"
+        target="_blank"
+        class="github-icon"
+      >
+        <div class="github-logo"></div>
+      </a>
+    </footer>
   </body>
 </html>
