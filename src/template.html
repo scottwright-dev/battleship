@@ -4,8 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleships</title>
+    <script defer src="main.js"></script>
   </head>
   <body>
-    <h1>Battleships Game</h1>
+    <main class="container" role="main">
+      <header class="header">
+        <h1>Battleships</h1>
+      </header>
+
+      <section aria-labelledby="p1Title">
+        <h2 id="p1Title" class="player-title">Your Fleet</h2>
+        <div id="p1-gameboard" class="gameboard" role="grid" aria-readonly="true"></div>
+        <h3 class="ship-counter p1-ship-counter">Ships remaining: <span aria-live="polite"></span></h3>
+      </section>
+
+      <section aria-labelledby="p2Title">
+        <h2 id="p2Title" class="player-title">Enemy Fleet</h2>
+        <div id="p2-gameboard" class="gameboard" role="grid" aria-readonly="true"></div>
+        <h3 class="ship-counter p2-ship-counter">Ships remaining: <span aria-live="polite"></span></h3>
+      </section>
+
+      <div class="btn-container">
+        <button class="restart-btn" aria-label="Restart the game">Restart Game</button>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://github.com/scottwright-dev/battleship" target="_blank" aria-label="View the GitHub repository" class="github-icon">
+        <div class="github-logo" aria-hidden="true"></div>
+      </a>
+    </footer>
   </body>
 </html>
