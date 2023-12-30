@@ -65,9 +65,9 @@ test("checkWin method returns the winning player after a round where all opponen
   aiPlayer.gameBoard.placeShip(aiShip, 1, 0, true);
   aiPlayer.gameBoard.placeShip(aiShip, 1, 1, true);
 
-    humanPlayer.sendAttack(1, 0, aiPlayer.gameBoard);
-    humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard);
+  humanPlayer.sendAttack(1, 0, aiPlayer.gameBoard);
+  humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard);
 
-    const winner = gameController.checkWin();
-    expect(winner).toBe(humanPlayer);
-    });
+  const winner = gameController.checkWin();
+  expect(winner).toBe(humanPlayer);
+});
