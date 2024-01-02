@@ -54,7 +54,7 @@ test("checkWin method returns null after each round if no player has sunk all op
   expect(gameController.checkWin()).toBeNull();
 });
 
-test("checkWin method returns the winning player after a round where all opponent's ships are sunk", () => {
+test("checkWin method returns human player after a round where all AI ships are sunk", () => {
   const humanPlayer = new Player("Human Player");
   const aiPlayer = new AiPlayer("AI Player");
   const gameController = new GameController(humanPlayer, aiPlayer);
@@ -63,11 +63,35 @@ test("checkWin method returns the winning player after a round where all opponen
 
   const aiShip = new Ship("patrol boat", 2);
   aiPlayer.gameBoard.placeShip(aiShip, 1, 0, true);
-  aiPlayer.gameBoard.placeShip(aiShip, 1, 1, true);
+
+  const humanShip = new Ship("patrol boat", 2);
+  humanPlayer.gameBoard.placeShip(humanShip, 0, 0, true);
 
   humanPlayer.sendAttack(1, 0, aiPlayer.gameBoard);
-  humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard);
+  humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard); 
 
   const winner = gameController.checkWin();
-  expect(winner).toBe(humanPlayer);
+
+  expect(winner).toBe("Human Player");
+});
+
+test("checkWin method returns AI player after a round where all human player's ships are sunk", () => {
+  const humanPlayer = new Player("Human Player");
+  const aiPlayer = new AiPlayer("AI Player");
+  const gameController = new GameController(humanPlayer, aiPlayer);
+
+  gameController.initializeGame();
+
+  const aiShip = new Ship("patrol boat", 2);
+  aiPlayer.gameBoard.placeShip(aiShip, 1, 0, true);
+
+  const humanShip = new Ship("patrol boat", 2);
+  humanPlayer.gameBoard.placeShip(humanShip, 0, 0, true);
+
+  aiPlayer.sendAttack(0, 0, humanPlayer.gameBoard);
+  aiPlayer.sendAttack(0, 1, humanPlayer.gameBoard);
+
+  const winner = gameController.checkWin();
+
+  expect(winner).toBe("AI Player");
 });
