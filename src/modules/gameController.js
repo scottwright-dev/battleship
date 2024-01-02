@@ -19,10 +19,10 @@ export default class GameController {
 
   checkWin() {
     if (this.player1.gameBoard.areAllShipsSunk()) {
-      return this.player1;
+      return this.player2.name;
     }
     if (this.player2.gameBoard.areAllShipsSunk()) {
-      return this.player1;
+      return this.player1.name;
     }
     return null;
   }
