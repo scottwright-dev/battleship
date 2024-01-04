@@ -1,5 +1,6 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable no-plusplus */
 /* eslint-disable class-methods-use-this */
-// eslint-disable-next-line max-classes-per-file
 export class Player {
   constructor(name) {
     this.name = name;
@@ -18,10 +19,10 @@ export class Player {
 export class AiPlayer extends Player {
   constructor(name) {
     super(name);
-    // 2D array to keep track of the coords already attacked
     this.attackedCoordinates = Array(10)
       .fill(null)
       .map(() => Array(10).fill(false));
+    this.lastAttack = null;
   }
 
   makeRandomAttack(opponentsBoard) {
@@ -30,9 +31,14 @@ export class AiPlayer extends Player {
     do {
       rowIndex = Math.floor(Math.random() * 10);
       colIndex = Math.floor(Math.random() * 10);
-    } while (this.attackedCoordinates[rowIndex][colIndex]); // Checks if coord was already attacked
+    } while (this.attackedCoordinates[rowIndex][colIndex]);
 
-    this.attackedCoordinates[rowIndex][colIndex] = true; // Mark coord as attacked
+    this.attackedCoordinates[rowIndex][colIndex] = true;
+    this.lastAttack = [rowIndex, colIndex];
     return this.sendAttack(rowIndex, colIndex, opponentsBoard);
+  }
+
+  getLastAttack() {
+    return this.lastAttack;
   }
 }
