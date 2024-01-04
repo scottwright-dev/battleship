@@ -63,6 +63,18 @@ export default class GameBoard {
     return false;
   }
 
+  getShipCoordinates() {
+    const shipCoordinates = [];
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.columns; j++) {
+        if (this.board[i][j] instanceof Ship) {
+          shipCoordinates.push({ row: i, col: j });
+        }
+      }
+    }
+    return shipCoordinates;
+  }
+
   isAttackValid(rowIndex, columnIndex) {
     return (
       rowIndex >= 0 &&
@@ -93,7 +105,7 @@ export default class GameBoard {
       return true;
     }
     this.markCellAsAttacked(rowIndex, columnIndex, "miss");
-    return false;
+    return true;
   }
 
   areAllShipsSunk() {
