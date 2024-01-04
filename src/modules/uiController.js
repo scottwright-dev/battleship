@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 import Ship from "./ship";
+import GameBoard from "./gameBoard";
 
 export function createBoard(boardId, rows, columns) {
   const boardElement = document.getElementById(boardId);
@@ -97,3 +98,15 @@ export function aiMakeAttack(player1, player2, gameController) {
     gameController.switchPlayer();
   }
 }
+
+export function setupRestartButtonListener(player1, player2) {
+  const restartButton = document.getElementById("restart-button");
+
+  restartButton.addEventListener("click", () => {
+    player1.setGameBoard(new GameBoard());
+    player2.setGameBoard(new GameBoard());
+    createBoard("p1-gameboard", 10, 10);
+    createBoard("p2-gameboard", 10, 10);
+  });
+}
+
