@@ -38,11 +38,20 @@
         </section>
       </div>
 
-      <div class="btn-container">
-        <button id="restart-button" class="restart-btn" aria-label="Restart the game">
+      <dialog
+        id="game-end-dialog"
+        class="game-end-dialog"
+        aria-labelledby="game-end-title"
+      >
+        <h2 id="game-end-title" class="winner-info"></h2>
+        <button
+          id="restart-button"
+          class="restart-btn"
+          aria-label="Restart the game"
+        >
           Restart Game
         </button>
-      </div>
+      </dialog>
     </main>
 
     <footer>
