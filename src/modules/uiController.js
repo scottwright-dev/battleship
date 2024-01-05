@@ -3,6 +3,7 @@
 import Ship from "./ship";
 import GameBoard from "./gameBoard";
 
+// Board setup functions
 export function createBoard(boardId, rows, columns) {
   const boardElement = document.getElementById(boardId);
   boardElement.innerHTML = "";
@@ -31,8 +32,8 @@ export function colorPlayerShips(boardId, playerGameBoard) {
   }
 }
 
-// this needs splitting up
-function handleCellClick(event, player1, player2, gameController) {
+// Attack handling
+function handlePlayerAttack(event, player1, player2, gameController) {
   const cell = event.target;
   if (cell.className !== "board-cell") return;
 
@@ -44,19 +45,54 @@ function handleCellClick(event, player1, player2, gameController) {
     columnIndex,
     player2.gameBoard,
   );
-
   if (attackResult !== false) {
-    const cellState = player2.gameBoard.board[rowIndex][columnIndex];
-    if (cellState === "hit") {
-      cell.classList.add("cell-hit");
-    } else if (cellState === "miss") {
-      cell.classList.add("cell-miss");
+    updateCellState(cell, player2.gameBoard.board[rowIndex][columnIndex]);
+
+    const winner = gameController.checkWin();
+    if (winner) {
+      endGame(winner, player1.name);
+    } else {
+      gameController.switchPlayer();
+      setTimeout(() => aiMakeAttack(player1, player2, gameController), 300);
     }
-    if (gameController.checkWin()) {
-      // need to handle end of game scenario here
-    }
+  }
+}
+
+export function aiMakeAttack(player1, player2, gameController) {
+  player2.makeRandomAttack(player1.gameBoard);
+  const [rowIndex, colIndex] = player2.getLastAttack();
+
+  const playerBoardId = "p1-gameboard";
+  const cell = document.querySelector(
+    `#${playerBoardId} .board-cell[data-row="${rowIndex}"][data-column="${colIndex}"]`,
+  );
+
+  updateCellState(cell, player1.gameBoard.board[rowIndex][colIndex]);
+
+  const winner = gameController.checkWin();
+  if (winner) {
+    endGame(winner, player1.name);
+  } else {
     gameController.switchPlayer();
-    setTimeout(() => aiMakeAttack(player1, player2, gameController), 300);
+  }
+}
+
+// End Game
+function endGame(winnerName, playerName) {
+  const winnerInfoElement = document.querySelector(".winner-info");
+  const dialog = document.querySelector("dialog");
+
+  winnerInfoElement.textContent =
+    winnerName === playerName ? "You won!" : "You lose";
+  dialog.showModal();
+}
+
+// Utility functions
+function updateCellState(cell, cellState) {
+  if (cellState === "hit") {
+    cell.classList.add("cell-hit");
+  } else if (cellState === "miss") {
+    cell.classList.add("cell-miss");
   }
 }
 
@@ -70,32 +106,8 @@ export function setupCellClickHandler(
 
   if (boardId === "p2-gameboard") {
     boardElement.addEventListener("click", (event) =>
-      handleCellClick(event, player1, player2, gameController),
+      handlePlayerAttack(event, player1, player2, gameController),
     );
-  }
-}
-
-export function aiMakeAttack(player1, player2, gameController) {
-
-  player2.makeRandomAttack(player1.gameBoard);
-  const [rowIndex, colIndex] = player2.getLastAttack();
-
-  const playerBoardId = "p1-gameboard";
-  const cell = document.querySelector(
-    `#${playerBoardId} .board-cell[data-row="${rowIndex}"][data-column="${colIndex}"]`,
-  );
-
-  const cellState = player1.gameBoard.board[rowIndex][colIndex];
-  if (cellState === "hit") {
-    cell.classList.add("cell-hit");
-  } else if (cellState === "miss") {
-    cell.classList.add("cell-miss");
-  }
-
-  if (gameController.checkWin()) {
-    // still need to handle end of game scenario
-  } else {
-    gameController.switchPlayer();
   }
 }
 
@@ -107,6 +119,6 @@ export function setupRestartButtonListener(player1, player2) {
     player2.setGameBoard(new GameBoard());
     createBoard("p1-gameboard", 10, 10);
     createBoard("p2-gameboard", 10, 10);
+    document.querySelector("dialog").close();
   });
 }
-
