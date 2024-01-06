@@ -80,12 +80,14 @@ export function aiMakeAttack(player1, player2, gameController) {
 // End Game
 function endGame(winnerName, playerName) {
   const winnerInfoElement = document.querySelector(".winner-info");
+  const dialogContainer = document.querySelector(".dialog-container");
   const dialog = document.querySelector("dialog");
 
-  winnerInfoElement.textContent =
-    winnerName === playerName ? "You won!" : "You lose";
+  winnerInfoElement.textContent = winnerName === playerName ? "You won!" : "You lose";
+  dialogContainer.style.display = 'flex';
   dialog.showModal();
 }
+
 
 // Utility functions
 function updateCellState(cell, cellState) {
@@ -120,5 +122,7 @@ export function setupRestartButtonListener(player1, player2) {
     createBoard("p1-gameboard", 10, 10);
     createBoard("p2-gameboard", 10, 10);
     document.querySelector("dialog").close();
+    document.querySelector(".dialog-container").style.display = 'none';
   });
 }
+
