@@ -1,0 +1,118 @@
+/* ROOT STYLES & RESETS*/
+
+:root {
+  --background-color: #d4d4d8;
+  --board-color: #7692ab;
+  --border-radius: 6px;
+  --cell-hit: #e53535;
+  --cell-miss: #436cb6;
+  --line-color: #151515;
+  --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-size: 16px;
+  --font-weight: 400;
+  --line-height: 1.5;
+  --padding: 1.5rem;
+  --ship-color: #6f6c69;
+  --text-color: #151515;
+  --transition: transform 0.1s ease-in-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* LAYOUT */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gameboards-flexbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
+}
+
+.board-cell {
+  width: 30px;
+  height: 30px;
+  outline: 1px solid var(--line-color);
+  background-color: var(--board-color);
+}
+
+/* ELEMENT STYLES */
+
+.player-ship {
+  background-color: var(--ship-color);
+}
+
+.cell-hit {
+  background-color: var(--cell-hit);
+}
+
+.cell-miss {
+  background-color: var(--cell-miss);
+}
+
+#p2-gameboard .board-cell {
+  cursor: crosshair;
+}
+
+.restart-btn {
+  background-color: var(--ship-color);
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 7rem;
+  line-height: 1;
+  transition:
+    filter 0.1s ease-in-out,
+    background-color 0.1s ease-in-out;
+}
+
+.restart-btn:hover {
+  background-color: var(--btn-hover);
+}
+
+/* MOBILE & TABLET */
+
+@media (max-width: 768px) {
+  .gameboards-flexbox-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
