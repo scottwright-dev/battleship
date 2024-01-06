@@ -1,18 +1,24 @@
 import "./style.css";
 import Ship from "./modules/ship";
-import { createBoard, updateUIForBoard } from "./modules/uiController";
+import {
+  createBoard,
+  setupCellClickHandler,
+  colorPlayerShips,
+  setupRestartButtonListener,
+} from "./modules/uiController";
 import { Player, AiPlayer } from "./modules/player";
 import GameController from "./modules/gameController";
-
-// UI Setup
-createBoard("p1-gameboard", 10, 10);
-createBoard("p2-gameboard", 10, 10);
 
 // Game Setup
 const player1 = new Player("Human Player");
 const player2 = new AiPlayer("Ai Player");
 const gameController = new GameController(player1, player2);
 gameController.initializeGame();
+
+// UI Setup
+createBoard("p1-gameboard", 10, 10, player1.gameBoard);
+createBoard("p2-gameboard", 10, 10);
+setupCellClickHandler("p2-gameboard", player1, player2, gameController);
 
 // p1 manual ship placement for testing
 const carrier = new Ship("Carrier", 5);
@@ -30,7 +36,7 @@ player1.gameBoard.placeShip(submarine, 6, 2, false);
 const patrolBoat = new Ship("patrol boat", 2);
 player1.gameBoard.placeShip(patrolBoat, 8, 7, false);
 
-updateUIForBoard("p1-gameboard", player1.gameBoard);
+colorPlayerShips("p1-gameboard", player1.gameBoard);
 
 // p2 manual ship placement for testing
 const carrier2 = new Ship("Carrier", 5);
@@ -48,4 +54,4 @@ player2.gameBoard.placeShip(submarine2, 6, 2, false);
 const patrolBoat2 = new Ship("patrol boat", 2);
 player2.gameBoard.placeShip(patrolBoat2, 8, 7, false);
 
-updateUIForBoard("p2-gameboard", player2.gameBoard);
+setupRestartButtonListener(player1, player2);
