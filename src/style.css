@@ -72,7 +72,13 @@ button {
   background-color: var(--board-color);
 }
 
-/* MODAL */
+/* PLACE SHIPS MODAL */
+
+.ship-hover {
+  background-color: rgba(111, 108, 105, 0.5);
+}
+
+/* GAME END MODAL */
 
 .dialog-container {
   display: none;
@@ -83,7 +89,7 @@ button {
   height: 100%;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
