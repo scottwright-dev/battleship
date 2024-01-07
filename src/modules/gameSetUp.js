@@ -35,6 +35,6 @@ export default class GameSetup {
       this.player2,
       this.gameController,
     );
-    setupRestartButtonListener(this.player1, this.player2);
+    setupRestartButtonListener(this);
   }
 }

@@ -2,7 +2,6 @@
 /* eslint-disable no-plusplus */
 
 import Ship from "./ship";
-import GameBoard from "./gameBoard";
 
 // Board setup functions
 export function createBoard(boardId, rows, columns, gameBoard = null) {
@@ -84,13 +83,13 @@ export function aiMakeAttack(player1, player2, gameController) {
 // End Game
 function endGame(winnerName, playerName) {
   const winnerInfoElement = document.querySelector(".winner-info");
-  const dialogContainer = document.querySelector(".dialog-container");
-  const dialog = document.querySelector("dialog");
+  const endGameDialog = document.getElementById("game-end-dialog");
+  const dialogContainer = document.querySelector(".game-end-dialog-container");
 
   winnerInfoElement.textContent =
     winnerName === playerName ? "You won!" : "You lose";
   dialogContainer.style.display = "flex";
-  dialog.showModal();
+  endGameDialog.showModal();
 }
 
 // Utility functions
@@ -117,32 +116,19 @@ export function setupCellClickHandler(
   }
 }
 
-export function setupRestartButtonListener(
-  player1,
-  player2,
-  gameController,
-  gameSetup,
-) {
+export function setupRestartButtonListener(gameSetup) {
   const restartButton = document.getElementById("restart-button");
 
   restartButton.addEventListener("click", () => {
-    // Reset the game boards
-    player1.setGameBoard(new GameBoard());
-    player2.setGameBoard(new GameBoard());
-    gameController.initializeGame();
+    const endGameDialog = document.getElementById("game-end-dialog");
+    endGameDialog.close();
 
-    // Re-create boards
-    createBoard("p1-gameboard", 10, 10, player1.gameBoard);
-    createBoard("p2-gameboard", 10, 10, player2.gameBoard);
-
-    // Hide the dialog and reset the game setup
-    document.querySelector("dialog").close();
-    document.querySelector(".dialog-container").style.display = "none";
     gameSetup.initialize();
   });
 }
 
-// Ship placement modal
+// SHIP PLACEMENT MODAL LOGIC
+
 export function setupShipPlacementModal(player) {
   const modal = document.getElementById("ship-placement-modal");
   const boardElement = document.getElementById("placement-gameboard");
@@ -223,7 +209,6 @@ function handleShipPlacement(event, player, ship, isHorizontal) {
   const row = parseInt(event.target.dataset.row, 10);
   const col = parseInt(event.target.dataset.column, 10);
   if (player.gameBoard.placeShip(ship, row, col, isHorizontal)) {
-    // Update the placement board in the modal
     colorPlayerShips("placement-gameboard", player.gameBoard);
     clearShipPlacementHighlight();
     return true;
