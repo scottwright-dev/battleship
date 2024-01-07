@@ -1,10 +1,11 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
+
 import Ship from "./ship";
 import GameBoard from "./gameBoard";
 
 // Board setup functions
-export function createBoard(boardId, rows, columns) {
+export function createBoard(boardId, rows, columns, gameBoard = null) {
   const boardElement = document.getElementById(boardId);
   boardElement.innerHTML = "";
 
@@ -14,6 +15,9 @@ export function createBoard(boardId, rows, columns) {
       cell.className = "board-cell";
       cell.dataset.row = i;
       cell.dataset.column = j;
+      if (gameBoard && gameBoard.board[i][j] instanceof Ship) {
+        cell.classList.add("player-ship");
+      }
       boardElement.appendChild(cell);
     }
   }
@@ -83,11 +87,11 @@ function endGame(winnerName, playerName) {
   const dialogContainer = document.querySelector(".dialog-container");
   const dialog = document.querySelector("dialog");
 
-  winnerInfoElement.textContent = winnerName === playerName ? "You won!" : "You lose";
-  dialogContainer.style.display = 'flex';
+  winnerInfoElement.textContent =
+    winnerName === playerName ? "You won!" : "You lose";
+  dialogContainer.style.display = "flex";
   dialog.showModal();
 }
-
 
 // Utility functions
 function updateCellState(cell, cellState) {
@@ -113,16 +117,142 @@ export function setupCellClickHandler(
   }
 }
 
-export function setupRestartButtonListener(player1, player2) {
+export function setupRestartButtonListener(
+  player1,
+  player2,
+  gameController,
+  gameSetup,
+) {
   const restartButton = document.getElementById("restart-button");
 
   restartButton.addEventListener("click", () => {
+    // Reset the game boards
     player1.setGameBoard(new GameBoard());
     player2.setGameBoard(new GameBoard());
-    createBoard("p1-gameboard", 10, 10);
-    createBoard("p2-gameboard", 10, 10);
+    gameController.initializeGame();
+
+    // Re-create boards
+    createBoard("p1-gameboard", 10, 10, player1.gameBoard);
+    createBoard("p2-gameboard", 10, 10, player2.gameBoard);
+
+    // Hide the dialog and reset the game setup
     document.querySelector("dialog").close();
-    document.querySelector(".dialog-container").style.display = 'none';
+    document.querySelector(".dialog-container").style.display = "none";
+    gameSetup.initialize();
   });
 }
 
+// Ship placement modal
+export function setupShipPlacementModal(player) {
+  const modal = document.getElementById("ship-placement-modal");
+  const boardElement = document.getElementById("placement-gameboard");
+  let ships;
+  let currentShipIndex = 0;
+  let isHorizontal = true;
+
+  const resetModal = () => {
+    ships = createShips();
+    currentShipIndex = 0;
+    isHorizontal = true;
+    createBoard("placement-gameboard", 10, 10);
+  };
+
+  const handleShipPlacementClick = (event) => {
+    const placed = handleShipPlacement(
+      event,
+      player,
+      ships[currentShipIndex],
+      isHorizontal,
+    );
+    if (placed) {
+      currentShipIndex++;
+      if (currentShipIndex >= ships.length) {
+        modal.close();
+      }
+    }
+  };
+
+  const setupEventListeners = () => {
+    boardElement.removeEventListener("mouseover", handleShipHover);
+    boardElement.removeEventListener("mouseout", handleShipHoverOut);
+    boardElement.removeEventListener("click", handleShipPlacementClick);
+
+    boardElement.addEventListener("mouseover", (event) =>
+      handleShipHover(event, ships[currentShipIndex], isHorizontal),
+    );
+    boardElement.addEventListener("mouseout", handleShipHoverOut);
+    boardElement.addEventListener("click", handleShipPlacementClick);
+    document.getElementById("rotate-button").onclick = () => {
+      isHorizontal = !isHorizontal;
+    };
+  };
+
+  modal.addEventListener("close", () => {
+    colorPlayerShips("p1-gameboard", player.gameBoard);
+    resetModal();
+    setupEventListeners();
+  });
+
+  resetModal();
+  setupEventListeners();
+}
+
+function createShips() {
+  return [
+    new Ship("Carrier", 5),
+    new Ship("Battleship", 4),
+    new Ship("Destroyer", 3),
+    new Ship("Submarine", 3),
+    new Ship("Patrol Boat", 2),
+  ];
+}
+
+function handleShipHover(event, ship, isHorizontal) {
+  if (event.target.className.includes("board-cell")) {
+    const row = parseInt(event.target.dataset.row, 10);
+    const col = parseInt(event.target.dataset.column, 10);
+    highlightShipPlacement(row, col, ship.shipLength, isHorizontal);
+  }
+}
+
+function handleShipHoverOut() {
+  clearShipPlacementHighlight();
+}
+
+function handleShipPlacement(event, player, ship, isHorizontal) {
+  const row = parseInt(event.target.dataset.row, 10);
+  const col = parseInt(event.target.dataset.column, 10);
+  if (player.gameBoard.placeShip(ship, row, col, isHorizontal)) {
+    // Update the placement board in the modal
+    colorPlayerShips("placement-gameboard", player.gameBoard);
+    clearShipPlacementHighlight();
+    return true;
+  }
+  return false;
+}
+
+function highlightShipPlacement(row, col, length, isHorizontal) {
+  clearShipPlacementHighlight();
+  for (let i = 0; i < length; i++) {
+    const cell = isHorizontal
+      ? document.querySelector(
+          `#placement-gameboard .board-cell[data-row="${row}"][data-column="${
+            col + i
+          }"]`,
+        )
+      : document.querySelector(
+          `#placement-gameboard .board-cell[data-row="${
+            row + i
+          }"][data-column="${col}"]`,
+        );
+    if (cell) cell.classList.add("ship-hover");
+  }
+}
+
+function clearShipPlacementHighlight() {
+  document
+    .querySelectorAll("#placement-gameboard .board-cell.ship-hover")
+    .forEach((cell) => {
+      cell.classList.remove("ship-hover");
+    });
+}
