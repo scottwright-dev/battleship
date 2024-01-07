@@ -17,6 +17,12 @@
         ></div>
       </header>
 
+      <dialog id="ship-placement-modal" class="ship-placement-modal">
+        <div id="placement-gameboard" class="gameboard"></div>
+        <button id="rotate-button">Rotate Ship</button>
+      </dialog>
+      
+
       <div class="gameboards-flexbox-container">
         <section aria-labelledby="p1Title">
           <h2 id="p1Title" class="player-title">Your Fleet</h2>
@@ -38,22 +44,24 @@
         </section>
       </div>
 
-      <dialog
-        id="game-end-dialog"
-        class="game-end-dialog"
-        aria-labelledby="game-end-title"
-      >
-        <h2 id="game-end-title" class="winner-info"></h2>
-        <button
-          id="restart-button"
-          class="restart-btn"
-          aria-label="Restart the game"
+      <div class="dialog-container">
+        <dialog
+          id="game-end-dialog"
+          class="game-end-dialog"
+          aria-labelledby="game-end-title"
         >
-          Restart Game
-        </button>
-      </dialog>
-    </main>
+          <h2 id="game-end-title" class="winner-info"></h2>
+          <button
+            id="restart-button"
+            class="restart-btn"
+            aria-label="Restart the game"
+          >
+            Restart Game
+          </button>
+        </dialog>
+      </div>
 
+    </main>
     <footer>
       <a
         href="https://github.com/scottwright-dev/battleship"
