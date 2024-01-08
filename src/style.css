@@ -7,9 +7,9 @@
   --cell-hit: #e53535;
   --cell-miss: #436cb6;
   --line-color: #151515;
-  --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
-    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: system-ui, -apple-system, "Segoe UI", "Roboto",
+    "Ubuntu", "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-size: 16px;
   --font-weight: 400;
   --line-height: 1.5;
@@ -32,6 +32,8 @@
 
 html,
 body {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   font-family: var(--font-family);
   color: var(--text-color);
@@ -51,6 +53,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 .gameboards-flexbox-container {
   display: flex;
@@ -61,15 +64,37 @@ button {
 
 .gameboard {
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(10, 30px);
+  grid-template-columns: repeat(10, 35px);
+  grid-template-rows: repeat(10, 35px);
 }
 
 .board-cell {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   outline: 1px solid var(--line-color);
   background-color: var(--board-color);
+}
+
+/* FOOTER */
+
+footer {
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 1%;
+}
+
+.github-logo {
+  width: 2rem;
+  height: 2rem;
+  transition: filter 0.2s ease-in-out;
+}
+
+.github-logo:hover {
+  filter: brightness(0) saturate(50%) invert(0.8); 
 }
 
 /* ELEMENT STYLES */
@@ -94,9 +119,10 @@ button {
   background-color: var(--ship-color);
 }
 
-.restart-btn {
+.button {
   background-color: var(--ship-color);
   border: none;
+  outline: none;
   border-radius: var(--border-radius);
   color: var(--text-color);
   margin: 1rem;
@@ -108,14 +134,14 @@ button {
     background-color 0.1s ease-in-out;
 }
 
-.restart-btn:hover {
+.button:hover {
   background-color: var(--btn-hover);
+  outline: 2px solid var(--line-color);
 }
 
 /* MODALs */
 
-.game-end-dialog-container
- {
+.game-end-dialog-container {
   display: none;
   position: fixed;
   top: 0;
@@ -125,17 +151,23 @@ button {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.6); 
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .game-end-dialog,
-.ship-placement-modal
- {
+.ship-placement-modal {
   border: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* TEXT */
+
+.text-title {
+  text-align: center;
+  padding: 10px;
 }
 
 /* MOBILE & TABLET */
@@ -144,5 +176,16 @@ button {
   .gameboards-flexbox-container {
     display: flex;
     flex-direction: column;
+  }
+
+  .gameboard {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+  }
+
+  .board-cell {
+    width: 30px;
+    height: 30px;
   }
 }
