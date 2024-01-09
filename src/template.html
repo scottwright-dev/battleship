@@ -16,12 +16,13 @@
           aria-label="Game Information"
         ></div>
       </header>
-
-      <div class="ship-placement-modal-container">
+      <div class="dialog-container">
         <dialog id="ship-placement-modal" class="ship-placement-modal">
-          <h3 class="text-title">Place your ships</h3>
-          <div id="placement-gameboard" class="gameboard"></div>
-          <button id="rotate-button" class="button">Rotate Ship</button>
+          <h2 class="text-title">Place your ships</h2>
+          <div class="modal-content">
+            <div id="placement-gameboard" class="gameboard"></div>
+            <button id="rotate-button" class="button">Rotate Ship</button>
+          </div>
         </dialog>
       </div>
 
@@ -52,7 +53,7 @@
           class="game-end-dialog"
           aria-labelledby="game-end-title"
         >
-          <h2 id="game-end-title" class="winner-info"></h2>
+          <h2 id="game-end-title" class="winner-info text-title"></h2>
           <button
             id="restart-button"
             class="button"
