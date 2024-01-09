@@ -7,9 +7,9 @@
   --cell-hit: #e75a5a;
   --cell-miss: #436cb6;
   --line-color: #151515;
-  --font-family: system-ui, -apple-system, "Segoe UI", "Roboto",
-    "Ubuntu", "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
   --font-size: 16px;
   --font-weight: 400;
   --line-height: 1.5;
@@ -135,7 +135,7 @@ button {
   background-color: rgba(0, 0, 0, 0.885);
 }
 
-/* MODAL PLACEMENT */ 
+/* MODAL PLACEMENT */
 .game-end-dialog,
 .ship-placement-modal {
   border: none;
@@ -162,7 +162,7 @@ button {
   font-weight: 400;
 }
 
-.header .text-title{
+.header .text-title {
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -186,7 +186,7 @@ footer {
 }
 
 .github-logo:hover {
-  filter: brightness(0) saturate(50%) invert(0.8); 
+  filter: brightness(0) saturate(50%) invert(0.8);
 }
 
 /* MOBILE & TABLET */

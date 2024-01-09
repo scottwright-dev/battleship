@@ -68,7 +68,7 @@ test("checkWin method returns human player after a round where all AI ships are 
   humanPlayer.gameBoard.placeShip(humanShip, 0, 0, true);
 
   humanPlayer.sendAttack(1, 0, aiPlayer.gameBoard);
-  humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard); 
+  humanPlayer.sendAttack(1, 1, aiPlayer.gameBoard);
 
   const winner = gameController.checkWin();
 
