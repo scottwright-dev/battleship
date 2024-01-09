@@ -9,7 +9,6 @@
 7. [Thoughts & Observations](#thoughts-and-observations)
 8. [Future Enhancements](#future-enhancements)
 9. [Installation](#installation)
-10. [Credits](#credits)
 
 ## Description
 
@@ -24,7 +23,7 @@ Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright
 ## Design
 
 <div align='center'>
-<img src='./assets/battleships-mockup.png' alt='Screenshot of desktop design'>
+<img src='./src/assets/battleships-mockup.png' alt='Screenshot of desktop design'>
 </div>
 
 <br>
