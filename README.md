@@ -18,7 +18,7 @@ The focus of the assignment revolved around employing unit testing to construct 
 
 ## Demo
 
-Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright-dev.github.io/weather-app/)
+Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright-dev.github.io/battleships/)
 
 ## Design
 
