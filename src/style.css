@@ -186,7 +186,7 @@ footer {
 }
 
 .github-logo:hover {
-  filter: brightness(0) saturate(50%) invert(0.8);
+  filter: brightness(0) saturate(50%) invert(0.6);
 }
 
 /* MOBILE & TABLET */
