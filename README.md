@@ -4,11 +4,12 @@
 2. [Demo](#demo)
 3. [Design](#design)
 4. [Features](#features)
-5. [Technologies Used](#technologies-used)
-6. [Project Challenges](#project-challenges)
-7. [Thoughts & Observations](#thoughts-and-observations)
-8. [Future Enhancements](#future-enhancements)
-9. [Installation](#installation)
+5. [Unit Test Results](#Unit-Test-Results)
+6. [Technologies Used](#technologies-used)
+7. [Project Challenges](#project-challenges)
+8. [Thoughts & Observations](#thoughts-and-observations)
+9. [Future Enhancements](#future-enhancements)
+10. [Installation](#installation)
 
 ## Description
 
@@ -26,8 +27,6 @@ Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright
 <img src='./src/assets/battleships-mockup.png' alt='Screenshot of desktop design'>
 </div>
 
-<br>
-
 ## Features
 
 - **TDD Approach**: A test-first, fail/pass methodology was followed in developement utilizing Jest to ensure code reliability.
@@ -36,6 +35,12 @@ Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright
 - **Turn-Based Mechanics**: Follows a turn-based system that mimics the classic Battleship game-play.
 - **Interactive UI**: The UI allows players to manually position their ships and engage with the enemy board through mouse interactions for attack placement.
 - **Optimized for Desktop**: Currently game-play is supported on desktop platforms.
+
+## Unit Test Results
+
+<div align='center'>
+<img src='./src/assets/jest-tests.png' alt='Jest test results overview showing all tests have passed'>
+</div>
 
 ## Technologies Used
 
