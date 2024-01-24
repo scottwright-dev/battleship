@@ -1,18 +1,18 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
-  const isProduction = argv.mode === 'production';
+  const isProduction = argv.mode === "production";
 
   return {
-    mode: isProduction ? 'production' : 'development',
+    mode: isProduction ? "production" : "development",
     entry: path.resolve(__dirname, "src/index.js"),
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "main.js",
     },
-    devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map',
+    devtool: isProduction ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       static: {
         directory: path.resolve(__dirname, "dist"),
@@ -28,8 +28,8 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader'
+            isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+            "css-loader",
           ],
         },
       ],
