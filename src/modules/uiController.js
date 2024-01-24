@@ -119,12 +119,19 @@ export function setupCellClickHandler(
 export function setupRestartButtonListener(gameSetup) {
   const restartButton = document.getElementById("restart-button");
 
-  restartButton.addEventListener("click", () => {
+  function restartGameHandler() {
     const endGameDialog = document.getElementById("game-end-dialog");
-    endGameDialog.close();
+    const dialogContainer = document.querySelector(
+      ".game-end-dialog-container",
+    );
 
+    dialogContainer.style.display = "none";
+
+    endGameDialog.close();
     gameSetup.initialize();
-  });
+  }
+  restartButton.removeEventListener("click", restartGameHandler);
+  restartButton.addEventListener("click", restartGameHandler);
 }
 
 // SHIP PLACEMENT MODAL LOGIC
