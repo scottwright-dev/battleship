@@ -19,7 +19,7 @@ The focus of the assignment revolved around employing unit testing to construct 
 
 ## Demo
 
-Click here: [https://scottwright-dev.github.io/battleships/](https://scottwright-dev.github.io/battleships/)
+Click here: [https://scottwright-dev.github.io/battleship/](https://scottwright-dev.github.io/battleship/)
 
 ## Design
 
