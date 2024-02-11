@@ -1,15 +1,16 @@
 ## Table of Contents
 
 1. [Description](#description)
-2. [Demo](#demo)
-3. [Design](#design)
-4. [Features](#features)
-5. [Unit Test Results](#Unit-Test-Results)
-6. [Technologies Used](#technologies-used)
-7. [Project Challenges](#project-challenges)
-8. [Thoughts & Observations](#thoughts-and-observations)
-9. [Future Enhancements](#future-enhancements)
-10. [Installation](#installation)
+1. [Demo](#demo)
+1. [Design](#design)
+1. [How To Play](#how-to-play) 
+1. [Features](#features)
+1. [Unit Test Results](#unit-test-results)
+1. [Technologies Used](#technologies-used)
+1. [Project Challenges](#project-challenges)
+1. [Thoughts & Observations](#thoughts-and-observations)
+1. [Future Enhancements](#future-enhancements)
+1. [Installation](#installation)
 
 ## Description
 
@@ -26,6 +27,22 @@ Click here: [https://scottwright-dev.github.io/battleship/](https://scottwright-
 <div align='center'>
 <img src='./src/assets/battleships-mockup.png' alt='Screenshot of desktop design'>
 </div>
+
+## How to Play
+### Setup
+- Start the game with the 'Place Your Ships' board to arrange your fleet of 5 ships: Carrier, Battleship, Destroyer, Submarine, and Cruiser.
+- Hover over the board to see a preview of the ship you're placing. Ships can be placed vertically or horizontally.
+- Use the 'Rotate Ship' button to toggle the ship's orientation.
+- Click any square to place your ship, ensuring no overlaps. Ships must be placed on empty squares.
+- Continue this process until all 5 ships are positioned.
+  
+### Gameplay
+- The game begins once your fleet is fully deployed. Your goal is to sink all of your opponent's ships before they sink yours. The opponent's fleet is hidden.
+- Attack by selecting a square on the 'Enemy Fleet' board. A hover effect will indicate your target.
+- Clicking confirms the attack. A hit is marked red; a miss, blue.
+- After your turn, the AI opponent attacks. This alternation continues until one player's ships are all hit.
+- Victory is announced through a pop-up message.
+- To start a new game, click the 'Restart Game' button.
 
 ## Features
 
